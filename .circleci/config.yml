@@ -8,7 +8,6 @@ jobs:
           name: "Declare the variable"
           command: |
             echo 'export MYNEWVAR="Value of my new variable"' >> $BASH_ENV
-            source $BASH_ENV
             echo $MYNEWVAR
       - run:
           name: "Save the variable"
@@ -37,7 +36,11 @@ jobs:
             cat output/file > $BASH_ENV
             echo $FIRSTCONTEXTVAR
             echo $MYNEWVAR
-      
+      - run: 
+          name: "Check the variable one more time"
+          command: |
+            echo $MYNEWVAR
+            cat $BASH_ENV
       
 workflows:
   version: 2
