@@ -16,6 +16,10 @@ jobs:
             cat $BASH_ENV
             mkdir output
             cat $BASH_ENV > output/file
+      - run:
+          name: "Install the certificate"
+          command: |
+             apk add ca-certificates
       - persist_to_workspace:
           root: output
           paths: 
