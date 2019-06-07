@@ -1,0 +1,46 @@
+version: 2
+jobs:
+  first_job:
+    docker:
+      - image: circleci/alpine:3.4
+    steps:
+      - run: 
+          name: "Declare the variable"
+          command: |
+            echo 'export MYNEWVAR="Value of my new variable"' >> $BASH_ENV
+            source $BASH_ENV
+            echo $MYNEWVAR
+      - run:
+          name: "Save the variable"
+          command: |
+            cat $BASH_ENV
+            mkdir output
+            cat $BASH_ENV > output/file
+      - persist_to_workspace:
+          root: output
+          paths: 
+            file
+            
+  second_job:
+    docker:
+      - image: circleci/ruby:2.4.1
+    steps:
+      - attach_workspace:
+          at: output
+      - run:
+          name: "Check MYNEWVAR's value and the context variable's value"
+          command: |  
+            cat output/file > $BASH_ENV
+            echo $FIRSTCONTEXTVAR
+            echo $MYNEWVAR
+      
+      
+workflows:
+  version: 2
+  "Variables test":
+    jobs:
+      - first_job
+      - second_job:
+          context: first-context
+          requires:
+            - first_job
