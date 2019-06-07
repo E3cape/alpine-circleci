@@ -16,6 +16,7 @@ jobs:
             cat $BASH_ENV
             mkdir output
             cat $BASH_ENV > output/file
+            echo "THE VARIABLE IS:" $MYNEWVAR
       - run:
           name: "Install the certificate"
           command: |
