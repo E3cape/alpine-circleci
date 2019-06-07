@@ -2,7 +2,7 @@ version: 2
 jobs:
   first_job:
     docker:
-      - image: circleci/alpine:3.4
+      - image: alpine:3.7
     steps:
       - run: 
           name: "Declare the variable"
