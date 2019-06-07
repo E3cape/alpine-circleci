@@ -27,7 +27,7 @@ jobs:
             
   second_job:
     docker:
-      - image: circleci/ruby:2.4.1
+      - image: alpine:3.7
     steps:
       - attach_workspace:
           at: output
@@ -35,6 +35,7 @@ jobs:
           name: "Check MYNEWVAR's value and the context variable's value"
           command: |  
             cat output/file > $BASH_ENV
+            source $BASH_ENV
             echo $MYNEWVAR
       - run: 
           name: "Check the variable one more time"
