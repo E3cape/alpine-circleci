@@ -29,6 +29,10 @@ jobs:
     docker:
       - image: alpine:3.7
     steps:
+      - run:
+          name: "Install the certificate"
+          command: |
+             apk add ca-certificates
       - attach_workspace:
           at: output
       - run:
